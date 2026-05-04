@@ -12,7 +12,14 @@
     "lint": "eslint .",
     "lint:flix": "eslint . --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "db:new": "dbmate new",
+    "db:up": "dbmate up",
+    "db:migrate": "dbmate migrate",
+    "db:rollback": "dbmate rollback",
+    "db:status": "dbmate status",
+    "db:drop": "dbmate drop",
+    "db:reset": "npm run db:drop && npm run db:up"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -20,6 +27,7 @@
     "@tsconfig/strictest": "^2.0.8",
     "@types/express": "^5.0.6",
     "@types/node": "^25.6.0",
+    "@types/pg": "^8.20.0",
     "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
@@ -32,6 +40,8 @@
     "typescript-eslint": "^8.59.1"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "dbmate": "^2.33.0",
+    "express": "^5.2.1",
+    "pg": "^8.20.0"
   }
 }
