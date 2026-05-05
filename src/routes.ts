@@ -20,6 +20,7 @@ router.get("/", (_req, res) => {
 });
 
 router.get("/categories", categoryController.getCategories);
+router.get("/categories/:slug", categoryController.getCategory);
 
 // router.get("/products", async (_req, res) => {
 //   const result = await db.query<ProductRow>("SELECT * FROM products");
