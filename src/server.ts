@@ -4,11 +4,7 @@ import * as db from "./db/index.ts";
 const PORT = process.env["PORT"] ?? 3000;
 
 try {
-  //   Migraciones y conexión de bases de datos con TypeScript
-  // 53:00 04/29 pero en la fecha es 28/04
-
-  const result = await db.query("SELECT * from categories");
-  console.log(result.rows);
+  await db.query("SELECT 1");
 } catch (error) {
   console.error("sin conexion", error);
   process.exit(1);
