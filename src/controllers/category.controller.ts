@@ -8,10 +8,11 @@ export async function getCategories(_req: Request, res: Response) {
   res.status(200).json({ status: "success", data: categories });
 }
 
-export async function getCategory(
-  req: Request<{ slug: CategoryRow["slug"] }>,
-  res: Response,
-) {
+export interface SlugParams {
+  slug: CategoryRow["slug"];
+}
+
+export async function getCategory(req: Request<SlugParams>, res: Response) {
   const { slug } = req.params;
   const category = await categoryService.getCategory(slug);
   if (!category) {

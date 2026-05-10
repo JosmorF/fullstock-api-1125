@@ -1,19 +1,8 @@
 import { Router } from "express";
 import * as categoryController from "./controllers/category.controller.ts";
+import * as productController from "./controllers/product.controller.ts";
 
 const router = Router();
-
-// interface ProductRow {
-//   // esto es lo que viene de la base de datos
-//   id: number;
-//   title: string;
-//   description: string;
-//   price: number;
-//   create_at: Date;
-//   update_at: Date;
-// }
-
-// type Product = ReturnType<typeof camelcaseKeys<ProductRow>>;
 
 router.get("/", (_req, res) => {
   res.json({ message: "full stock API" });
@@ -22,16 +11,13 @@ router.get("/", (_req, res) => {
 router.get("/categories", categoryController.getCategories);
 router.get("/categories/:slug", categoryController.getCategory);
 
-// router.get("/products", async (_req, res) => {
-//   const result = await db.query<ProductRow>("SELECT * FROM products");
-//   const products: Product[] = camelcaseKeys(result.rows);
-//   res.json({ products });
-// });
+// Obtener Productos de una categoria
+router.get(
+  "/categories/:slug/products",
+  productController.getProductsByCategory,
+);
 
-//de esta forma podemos crear mas rutas, en este caso
-//como la estamos refiriendo al otro lado como /api, este ejemplo tomara el nombre de /api/conexion
-// router.get("/conexion", (_req, res) => {
-//   res.json({ message: "full conexion mediante API" });
-// });
+// Obtener detalle de un producto.
+router.get("/products/:slug", productController.getProductBySlug);
 
 export default router;

@@ -1,4 +1,6 @@
 import camelCaseKeys from "camelcase-keys";
+import * as db from "../db/index.ts";
+import * as categoryRepository from "./category.repository.ts";
 
 export interface ProductRow {
   id: number;
@@ -15,4 +17,24 @@ export interface ProductRow {
 
 export type Product = ReturnType<typeof camelCaseKeys<ProductRow>>;
 
-export function getByCategorySlug() {}
+export async function getByCategorySlug(
+  categorySlug: categoryRepository.CategoryRow["slug"],
+): Promise<Product[]> {
+  const result = await db.query<ProductRow>(
+    `
+    SELECT p.* FROM products p INNER JOIN categories c ON p.category_id = c.id WHERE c.slug= $1`,
+    [categorySlug],
+  );
+
+  return camelCaseKeys(result.rows);
+}
+
+export async function getProductBySlug(productSlug: ProductRow["slug"]) {
+  const result = await db.query<ProductRow>(
+    `
+    SELECT * FROM products WHERE slug = $1`,
+    [productSlug],
+  );
+
+  return result.rows[0] !== undefined ? camelCaseKeys(result.rows[0]) : null;
+}
